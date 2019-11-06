@@ -1,0 +1,40 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html class="gr__p_w3layouts_com">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>{{ error_code }} - Tradel India</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <link rel="apple-touch-icon" sizes="180x180"
+          href="{% static 'adminpanel/assets/images/favicons/apple-touch-icon.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32"
+          href="{% static 'adminpanel/assets/images/favicons/favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16"
+          href="{% static 'adminpanel/assets/images/favicons/favicon-16x16.png' %}">
+    <link rel="manifest" href="{% static 'adminpanel/assets/images/favicons/site.webmanifest' %}">
+
+    <meta name="msapplication-TileColor" content="#F26522">
+    <meta name="theme-color" content="#F26522">
+
+    <style>
+        body {
+            font-family: Sans-Serif;
+        }
+
+        .page {
+            margin-top: 100px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body data-gr-c-s-loaded="true" cz-shortcut-listen="true">
+<div class="page">
+    <img src="{% static 'adminpanel/assets/images/error.png' %}" alt="{{ error_code }}"/>
+    <h1>{{ error_code }}</h1>
+    <h3>{{ error_message }}</h3>
+</div>
+</body>
+</html>

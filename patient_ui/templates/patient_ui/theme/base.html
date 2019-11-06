@@ -1,0 +1,142 @@
+{% load static %}
+{% load decorators %}
+
+<!doctype html>
+<html class="no-js" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <meta name="description" content="{{ metadata.description|default:"" }}">
+    <meta name="title" content="{{ metadata.title|default:"" }} - Tradel India">
+    <title>{{ metadata.title|default:"" }} - Tradel India</title>
+
+    <link rel="apple-touch-icon" sizes="180x180"
+          href="{% static 'adminpanel/assets/images/favicons/apple-touch-icon.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32"
+          href="{% static 'adminpanel/assets/images/favicons/favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16"
+          href="{% static 'adminpanel/assets/images/favicons/favicon-16x16.png' %}">
+    <link rel="manifest" href="{% static 'adminpanel/assets/images/favicons/site.webmanifest' %}">
+
+    <meta name="msapplication-TileColor" content="#F26522">
+    <meta name="theme-color" content="#F26522">
+
+    <meta name="og:title" content="{{ metadata.title|default:"" }} - Tradel India">
+    <meta name="og:image" content="{{ metadata.image|default:"" }}">
+    <meta name="og:description" content="{{ metadata.description|default:"" }}">
+    <meta name="og:type" content="{{ metadata.type|default:"website" }}">
+    <meta name="og:url" content="https://{{ request.get_host }}{{ request.get_full_path }}">
+
+    <!-- Favicon-->
+    {#    <link rel="icon" href="{% static 'adminpanel/assets/img/favicon.ico' %}" type="image/x-icon">#}
+    <link rel="stylesheet" href="{% static 'adminpanel/assets/plugins/bootstrap/css/bootstrap.min.css' %}">
+    <!-- Custom Css -->
+    <link rel="stylesheet" href="{% static 'adminpanel/assets/css/main.css' %}">
+    <link rel="stylesheet" href="{% static 'adminpanel/assets/css/color_skins.css' %}">
+    <link rel="stylesheet" href="{% static 'adminpanel/assets/plugins/colobox/colorbox.css' %}">
+    <link rel="stylesheet" href="{% static 'adminpanel/assets/css/custom.css' %}?v=0.9.4">
+    {% block extracss %}{% endblock %}
+</head>
+<body class="theme-orange">
+<!-- Page Loader -->
+<div class="page-loader-wrapper">
+    <div class="loader">
+        <div class="preloader pl-size-l">
+            <div class="spinner-layer pl-orange">
+                <div class="circle-clipper left">
+                    <div class="circle"></div>
+                </div>
+                <div class="circle-clipper right">
+                    <div class="circle"></div>
+                </div>
+            </div>
+        </div>
+        <p>Please wait...</p>
+
+        <div class="m-t-30">
+            <img src="{% static 'adminpanel/assets/images/logo.png' %}" width="150" style="width: 150px;"
+                 alt="Tradel India"/>
+        </div>
+    </div>
+</div>
+<!-- Overlay For Sidebars -->
+<div class="overlay"></div>
+
+{% get_user_info request as user_info_obj %}
+
+{% if user_info_obj.role == "superuser" %}
+    {% include "patient_ui/theme/navigation-superuser.html" %}
+{% elif user_info_obj.role == "supervisor" %}
+    {% include "patient_ui/theme/navigation-supervisor.html" %}
+{% elif user_info_obj.role == "client" %}
+    {% include "patient_ui/theme/navigation-client.html" %}
+{% elif user_info_obj.role == "promoter" %}
+    {% include "patient_ui/theme/navigation-promoter.html" %}
+{% endif %}
+
+<section class="content home">
+    {% if messages %}
+        {% autoescape off %}
+            <div class="container-fluid pt-3">
+                {% for message in messages %}
+                    <div class="alert bg-{% if message.tags == 'error' %}danger{% else %}{{ message.tags }}{% endif %} alert-dismissible"
+                         role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endautoescape %}
+    {% endif %}
+
+    <div class="container-fluid pt-3 text-right go-back-btn-wrapper">
+        <a href="#" class="btn btn-default btn-xs" onclick="window.history.go(-1); return false;">
+            <i class="zmdi zmdi-arrow-left"></i>&nbsp;Back
+        </a>
+    </div>
+
+    {% block content %}{% endblock %}
+</section>
+
+<!-- Jquery Core Js -->
+<script src="{% static 'adminpanel/assets/bundles/libscripts.bundle.js' %}"></script>
+<!-- Lib Scripts Plugin Js -->
+<script src="{% static 'adminpanel/assets/bundles/vendorscripts.bundle.js' %}"></script>
+<!-- Jquery Knob Plugin Js -->
+<script src="{% static 'adminpanel/assets/bundles/mainscripts.bundle.js' %}"></script>
+<script src="{% static 'adminpanel/assets/plugins/colobox/jquery.colorbox-min.js' %}"></script>
+<script>
+    function getLocation(func) {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(func, function (error) {
+                    if (error.code == error.PERMISSION_DENIED) {
+                        confirm("Please allow access to your location in order to proceed further.");
+                        window.location.reload();
+                    }
+                }, {
+                    enableHighAccuracy: true,
+                    timeout: 10000,
+                    maximumAge: 0
+                }
+            )
+        } else {
+            x.innerHTML = "Geolocation is not supported by this device/browser.";
+        }
+    }
+
+    $(document).on('click', 'a.colorbox', function (e) {
+        e.preventDefault();
+        $(this).colorbox({
+            open: true,
+            href: $(this).find('img').attr('src'),
+            maxWidth: '80%',
+            maxHeight: '80%',
+        });
+    });
+</script>
+{% block extrascript %}{% endblock %}
+</body>
+</html>

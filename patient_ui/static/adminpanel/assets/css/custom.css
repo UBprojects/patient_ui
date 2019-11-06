@@ -1,0 +1,126 @@
+.sidebar .user-info .info-container .email {
+    font-size: 12px;
+}
+
+.alert {
+    color: #ffffff;
+    margin-bottom: 0;
+}
+
+ul.pagination .page-item.active .page-link {
+    background-color: #FF9500;
+    border-color: #FF9500;
+    color: #ffffff;
+}
+
+ul.pagination .page-item .page-link {
+    color: #FF9500;
+}
+
+.theme-orange .navbar-header {
+    background: #5E4DF6;
+}
+
+.theme-orange .sidebar .user-info {
+    background: #ffffff;
+}
+
+.sidebar .user-info {
+    padding: 4px 15px;
+}
+
+a.btn.bg-blue {
+    color: #ffffff;
+}
+
+.multiselect-container li.active a {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.multiselect-container > li > a > label {
+    padding: 5px 15px !important;
+}
+
+.multiselect-native-select div.btn-group {
+    box-shadow: none;
+    margin: 2px;
+}
+
+.form-group, .form-group label {
+    margin: 0;
+}
+
+.tt-menu .tt-suggestion.tt-selectable {
+    background: #fff;
+    border: 1px solid #e1e1e1;
+    padding: 5px;
+    cursor: pointer;
+}
+
+.tt-menu .tt-suggestion.tt-selectable:hover {
+    background: #e1e1e1;
+}
+
+.bootstrap-tagsinput .tag.label {
+    text-transform: none;
+}
+
+ul.pagination .page-item .page-link,
+a {
+    color: #5E4DF6;
+}
+
+a:hover {
+    color: #15069e;
+}
+
+ul.pagination .page-item.active .page-link,
+[type="checkbox"].filled-in:checked.chk-col-blue + label:after,
+[type="radio"].with-gap.radio-col-blue:checked + label:after {
+    background-color: #5E4DF6;
+    border-color: #5E4DF6;
+}
+
+.btn.bg-blue {
+    background-color: #5E4DF6 !important;
+}
+
+.spinner-layer.pl-blue, .form-group .form-line:after,
+[type="radio"].with-gap.radio-col-blue:checked + label:before {
+    border-color: #5E4DF6;
+}
+
+.switch label input[type=checkbox]:checked + .lever.switch-col-blue {
+    background-color: rgba(63, 81, 181, 0.5);
+}
+
+.switch label input[type=checkbox]:checked + .lever.switch-col-blue:after {
+    background-color: #5E4DF6;
+}
+
+.label.label-info {
+    background-color: #5E4DF6;
+    font-size: 14px;
+}
+
+.modal-footer .btn.bg-blue {
+    color: #ffffff;
+}
+
+.dataTables_length button.btn.dropdown-toggle {
+    display: none;
+}
+
+.dataTables_length div.btn-group.bootstrap-select {
+    width: auto;
+    margin: 0;
+    vertical-align: baseline;
+}
+
+.l-blue {
+    background: linear-gradient(45deg, #5E4DF6, #d3cffc) !important;
+}
+
+.dt-button-collection.dropdown-menu {
+    display: inline-table;
+}

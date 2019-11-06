@@ -1,0 +1,74 @@
+{% load static %}
+{% load decorators %}
+
+<!-- Top Bar -->
+<nav class="navbar">
+    <div class="col-12">
+
+        <div class="navbar-header">
+            <a href="javascript:void(0);" class="bars"></a>
+            <a class="navbar-brand" href="{% url 'clientdash:dashboard' %}">Tradel India</a>
+        </div>
+        <ul class="nav navbar-nav navbar-right">
+            <li>
+                <a href="{% url 'my_profile' %}" class="js-right-sidebar" data-close="true"
+                   title="My Profile"><i class="zmdi zmdi-account"></i></a>
+            </li>
+            <li>
+                <a href="{% url 'logout' %}" class="mega-menu" data-close="true"
+                   onclick="return confirm('Sure you want to logout?')"><i class="zmdi zmdi-power"></i></a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<!-- Left Sidebar -->
+<aside id="leftsidebar" class="sidebar">
+    <!-- User Info -->
+    <div class="user-info">
+        {#        <div class="image">#}
+        {#            <img src="{% static 'assets/images/xs/avatar1.jpg' %}" width="48" height="48"#}
+        {#                 alt="{{ request.user.first_name }} {{ request.user.last_name }}"/>#}
+        {#        </div>#}
+        <div class="info-container">
+            <div class="name"
+                 data-toggle="dropdown">{{ request.user.first_name }} {{ request.user.last_name }}</div>
+            <div class="email">{{ request.user.email }}</div>
+        </div>
+    </div>
+    <!-- #User Info -->
+    <!-- Menu -->
+    <div class="menu">
+        <ul class="list">
+            <li class="header">MAIN NAVIGATION</li>
+            <li>
+                <a href="#" class="menu-toggle waves-effect waves-block">
+                    <i class="zmdi zmdi-home"></i><span>Dashboard</span>
+                </a>
+                <ul class="ml-menu">
+                    <li><a href="{% url 'clientdash:dashboard' %}">All cities</a></li>
+
+                    {% get_client_cities request as all_cities %}
+                    {% for city in all_cities %}
+                        <li><a href="{% url 'clientdash:dashboard' %}?city_id={{ city.id }}">{{ city.name }}</a></li>
+                    {% endfor %}
+                </ul>
+            </li>
+            <li>
+                <a href="{% url 'clientdash:all_drives' %}">
+                    <i class="zmdi zmdi-car"></i><span>Drives</span>
+                </a>
+            </li>
+            <li>
+                <a href="#" class="menu-toggle waves-effect waves-block">
+                    <i class="zmdi zmdi-store"></i><span>Stores</span>
+                </a>
+                <ul class="ml-menu">
+                    <li><a href="{% url 'clientdash:all_stores' %}">All</a></li>
+                    <li><a href="{% url 'clientdash:completed_stores' %}">Completed</a></li>
+                    <li><a href="{% url 'clientdash:pending_stores' %}">Pending</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+    <!-- #Menu -->
+</aside>

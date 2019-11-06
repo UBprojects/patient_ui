@@ -1,0 +1,66 @@
+{% load static %}
+<!doctype html>
+<html class="no-js " lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
+          name="viewport">
+    <meta name="description" content="Responsive Bootstrap 4 and web Application ui kit.">
+
+    <title>BoffinBot Dashboard</title>
+    <!-- Favicon-->
+    <link rel="icon" href="{% static 'front/assets/images/favicons/favicon-16x16.png' %}" type="image/x-icon">
+    <link rel="stylesheet" href="{% static 'adminpanel/assets/plugins/bootstrap/css/bootstrap.min.css' %}">
+    <!-- Custom Css -->
+    <link rel="stylesheet" href="{% static 'adminpanel/assets/css/main.css' %}">
+    <link rel="stylesheet" href="{% static 'adminpanel/assets/css/authentication.css' %}">
+    <link rel="stylesheet" href="{% static 'adminpanel/assets/css/color_skins.css' %}">
+    {% block extracss %}{% endblock %}
+</head>
+<body class="theme-orange">
+<!-- Page Loader -->
+<div class="page-loader-wrapper">
+    <div class="loader">
+        <div class="line"></div>
+        <div class="line"></div>
+        <div class="line"></div>
+        <p>Please wait...</p>
+
+        <div class="m-t-30">
+            <img src="{% static 'front/assets/images/global/logo-128.svg' %}" width="48" height="48" alt="BoffinBot" style="width: 48px;">
+        </div>
+    </div>
+</div>
+<!-- Overlay For Sidebars -->
+<div class="overlay"></div>
+<!-- Search  -->
+<div class="search-bar">
+    <div class="search-icon"><i class="material-icons">search</i></div>
+    <input type="text" placeholder="Explore BoffinBot...">
+
+    <div class="close-search"><i class="material-icons">close</i></div>
+</div>
+
+{% block content %}{% endblock %}
+
+<!-- Jquery Core Js -->
+<script src="{% static 'adminpanel/assets/bundles/libscripts.bundle.js' %}"></script>
+<!-- Lib Scripts Plugin Js -->
+<script src="{% static 'adminpanel/assets/bundles/vendorscripts.bundle.js' %}"></script>
+<!-- Lib Scripts Plugin Js -->
+
+<script src="{% static 'adminpanel/assets/bundles/jvectormap.bundle.js' %}"></script>
+<!-- JVectorMap Plugin Js -->
+<script src="{% static 'adminpanel/assets/bundles/morrisscripts.bundle.js' %}"></script>
+<!-- Morris Plugin Js -->
+<script src="{% static 'adminpanel/assets/bundles/sparkline.bundle.js' %}"></script>
+<!-- Sparkline Plugin Js -->
+<script src="{% static 'adminpanel/assets/bundles/knob.bundle.js' %}"></script>
+<!-- Jquery Knob Plugin Js -->
+<script src="{% static 'adminpanel/assets/bundles/mainscripts.bundle.js' %}"></script>
+<script src="{% static 'adminpanel/assets/js/pages/index.js' %}"></script>
+<script src="{% static 'adminpanel/assets/js/pages/charts/jquery-knob.min.js' %}"></script>
+{% block extrascript %}{% endblock %}
+</body>
+</html>

@@ -1,0 +1,69 @@
+{% load static %}
+<!doctype html>
+<html class="no-js " lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <meta name="description" content="">
+
+    <title>Patient UI Dashboard</title>
+    <!-- Favicon-->
+    <link rel="icon" href="{% static 'adminpanel/assets/images/favicons/favicon-16x16.png' %}" type="image/x-icon">
+    <link rel="stylesheet" href="{% static 'adminpanel/assets/plugins/bootstrap/css/bootstrap.min.css' %}">
+    <!-- Custom Css -->
+    <link rel="stylesheet" href="{% static 'adminpanel/assets/css/main.css' %}">
+    <link rel="stylesheet" href="{% static 'adminpanel/assets/css/color_skins.css' %}">
+    <link rel="stylesheet" href="{% static 'adminpanel/assets/css/custom.css' %}">
+    {% block extracss %}{% endblock %}
+</head>
+<body class="theme-orange">
+<!-- Page Loader -->
+<div class="page-loader-wrapper">
+    <div class="loader">
+        <div class="preloader pl-size-l">
+            <div class="spinner-layer pl-orange">
+                <div class="circle-clipper left">
+                    <div class="circle"></div>
+                </div>
+                <div class="circle-clipper right">
+                    <div class="circle"></div>
+                </div>
+            </div>
+        </div>
+        <p>Please wait...</p>
+
+        <div class="m-t-30">
+            <img src="{% static 'adminpanel/assets/images/global/logo-128.svg' %}" width="48" height="48" alt="BoffinBot" style="width: 48px;"/>
+        </div>
+    </div>
+</div>
+<!-- Overlay For Sidebars -->
+<div class="overlay"></div>
+
+{% include "website/theme/navigation.html" %}
+
+<section class="content home">
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert bg-{% if message.tags == 'error' %}danger{% else %}{{ message.tags }}{% endif %} alert-dismissible"
+                 role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+    {% block content %}{% endblock %}
+</section>
+
+<!-- Jquery Core Js -->
+<script src="{% static 'adminpanel/assets/bundles/libscripts.bundle.js' %}"></script>
+<!-- Lib Scripts Plugin Js -->
+<script src="{% static 'adminpanel/assets/bundles/vendorscripts.bundle.js' %}"></script>
+<!-- Jquery Knob Plugin Js -->
+<script src="{% static 'adminpanel/assets/bundles/mainscripts.bundle.js' %}"></script>
+{% block extrascript %}{% endblock %}
+</body>
+</html>
