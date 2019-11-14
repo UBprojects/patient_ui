@@ -13,9 +13,26 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
+from django.conf import settings
 from django.conf.urls import url
+from django.conf.urls.static import static
 from django.contrib import admin
+from django.urls import include
+
+from patient_ui.views import auth as auth_view
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'^$', auth_view.index, name='home'),
+    url(r'^auth/logout/$', auth_view.logout, name='logout'),
+    url(r'^auth/login/$', auth_view.login, name='login'),
+    url(r'^auth/forgot-password/$', auth_view.forgot_password, name='forgot_password'),
 ]
+
+if settings.DEBUG:
+    import debug_toolbar
+
+    urlpatterns += [
+        url(r'^__debug__/', include(debug_toolbar.urls)),
+    ]
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
