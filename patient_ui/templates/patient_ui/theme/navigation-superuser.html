@@ -6,7 +6,7 @@
 
         <div class="navbar-header">
             <a href="javascript:void(0);" class="bars"></a>
-            <a class="navbar-brand" href="{% url 'superdash:dashboard' %}">Patient UI</a>
+            <a class="navbar-brand" href="{% url 'dashboard' %}">Patient UI</a>
         </div>
         <ul class="nav navbar-nav navbar-right">
             <li>
@@ -40,44 +40,8 @@
         <ul class="list">
             <li class="header">MAIN NAVIGATION</li>
             <li>
-                <a href="{% url 'superdash:dashboard' %}">
+                <a href="{% url 'dashboard' %}">
                     <i class="zmdi zmdi-home"></i><span>Dashboard</span>
-                </a>
-            </li>
-            <li>
-                <a href="#" class="menu-toggle waves-effect waves-block">
-                    <i class="zmdi zmdi-accounts"></i><span>Users</span>
-                </a>
-                <ul class="ml-menu">
-                    <li><a href="{% url 'superdash:superusers' %}">Superusers</a></li>
-                    <li><a href="{% url 'superdash:promoters' %}">Promoters</a></li>
-                    <li><a href="{% url 'superdash:clients' %}">Clients</a></li>
-                    <li><a href="{% url 'superdash:supervisors' %}">Supervisors</a></li>
-                </ul>
-            </li>
-            <li>
-                <a href="{% url 'superdash:all_stores' %}">
-                    <i class="zmdi zmdi-store"></i><span>Stores</span>
-                </a>
-            </li>
-            <li>
-                <a href="{% url 'superdash:listing_drives' %}?search=1&type=all">
-                    <i class="zmdi zmdi-car"></i><span>Drives</span>
-                </a>
-            </li>
-            <li>
-                <a href="{% url 'superdash:cities' %}">
-                    <i class="zmdi zmdi-pin"></i><span>Cities</span>
-                </a>
-            </li>
-            <li>
-                <a href="{% url 'superdash:drive_types' %}">
-                    <i class="zmdi zmdi-format-list-numbered"></i><span>Types</span>
-                </a>
-            </li>
-            <li>
-                <a href="{% url 'superdash:status_remarks' %}">
-                    <i class="zmdi zmdi-comment-alt-text"></i><span>Remarks</span>
                 </a>
             </li>
         </ul>

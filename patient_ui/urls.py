@@ -19,6 +19,7 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import include
 
+from patient_ui.views import app as app_view
 from patient_ui.views import auth as auth_view
 
 urlpatterns = [
@@ -27,6 +28,8 @@ urlpatterns = [
     url(r'^auth/logout/$', auth_view.logout, name='logout'),
     url(r'^auth/login/$', auth_view.login, name='login'),
     url(r'^auth/forgot-password/$', auth_view.forgot_password, name='forgot_password'),
+    url(r'^dashboard/$', app_view.dashboard, name='dashboard'),
+    url(r'^my-profile/$', auth_view.my_profile, name='my_profile'),
 ]
 
 if settings.DEBUG:
@@ -36,3 +39,8 @@ if settings.DEBUG:
         url(r'^__debug__/', include(debug_toolbar.urls)),
     ]
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+
+handler500 = 'patient_ui.views.auth.error500'
+handler502 = 'patient_ui.views.auth.error502'
+handler503 = 'patient_ui.views.auth.error503'
+handler504 = 'patient_ui.views.auth.error504'

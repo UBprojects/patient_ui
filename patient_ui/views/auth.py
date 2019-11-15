@@ -14,7 +14,7 @@ from patient_ui.models import *
 
 
 def index(request):
-    return redirect(reverse('login'))
+    return redirect(reverse('dashboard'))
 
 
 def login(request):
@@ -24,7 +24,7 @@ def login(request):
     else:
         if request.method != "POST":
             context_data = {'metadata': {'title': 'Login'}}
-            return render(request, 'patient_ui/login.html', context=context_data)
+            return render(request, 'patient_ui/auth/login.html', context=context_data)
         else:
             username = request.POST.get('username', None)
             if username:
@@ -45,7 +45,7 @@ def forgot_password(request):
     else:
         if request.method != "POST":
             context_data = {'metadata': {'title': 'Forgot Password'}}
-            return render(request, 'patient_ui/forgot_password.html', context=context_data)
+            return render(request, 'patient_ui/auth/forgot_password.html', context=context_data)
         else:
             email = request.POST.get('email', None)
             username = request.POST.get('username', None)
@@ -117,7 +117,7 @@ def my_profile(request):
                         'user_info': user_info,
                         'cities': cities,
                         'metadata': {'title': 'My profile'}}
-        return render(request, 'superdash/users/my_profile.html', context=context_data)
+        return render(request, 'patient_ui/auth/my_profile.html', context=context_data)
 
 
 @login_required(login_url=settings.LOGIN_URL)

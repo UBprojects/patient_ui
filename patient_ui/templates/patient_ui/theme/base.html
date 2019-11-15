@@ -1,5 +1,5 @@
 {% load static %}
-{% load decorators %}
+{#{% load decorators %}#}
 
 <!doctype html>
 <html class="no-js" lang="en">
@@ -63,17 +63,7 @@
 <!-- Overlay For Sidebars -->
 <div class="overlay"></div>
 
-{% get_user_info request as user_info_obj %}
-
-{% if user_info_obj.role == "superuser" %}
-    {% include "patient_ui/theme/navigation-superuser.html" %}
-{% elif user_info_obj.role == "supervisor" %}
-    {% include "patient_ui/theme/navigation-supervisor.html" %}
-{% elif user_info_obj.role == "client" %}
-    {% include "patient_ui/theme/navigation-client.html" %}
-{% elif user_info_obj.role == "promoter" %}
-    {% include "patient_ui/theme/navigation-promoter.html" %}
-{% endif %}
+{% include "patient_ui/theme/navigation-superuser.html" %}
 
 <section class="content home">
     {% if messages %}
@@ -91,12 +81,6 @@
             </div>
         {% endautoescape %}
     {% endif %}
-
-    <div class="container-fluid pt-3 text-right go-back-btn-wrapper">
-        <a href="#" class="btn btn-default btn-xs" onclick="window.history.go(-1); return false;">
-            <i class="zmdi zmdi-arrow-left"></i>&nbsp;Back
-        </a>
-    </div>
 
     {% block content %}{% endblock %}
 </section>

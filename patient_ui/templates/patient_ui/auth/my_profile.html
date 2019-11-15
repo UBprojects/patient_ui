@@ -1,0 +1,193 @@
+{% extends "socialm/dashboard/theme/base.html" %}
+{% load static %}
+
+{% block navigation %}
+    {% include "socialm/dashboard/theme/navigation-twitter.html" %}
+{% endblock %}
+
+{% block extracss %}
+    <link href="{% static 'dashboard/assets/lib/select2/css/select2.min.css' %}" rel="stylesheet">
+    <style>
+        form label {
+            min-width: 110px;
+        }
+
+        input, select, .select2 {
+            display: inline-block !important;
+            max-width: 300px;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <div class="slim-mainpanel">
+        <div class="container">
+            <div class="slim-pageheader">
+                <ol class="breadcrumb slim-breadcrumb">
+                    <li class="breadcrumb-item"><a href="{% url 'twitter:dashboard' %}">Home</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">My Profile</li>
+                </ol>
+                <h6 class="slim-pagetitle">My Profile</h6>
+            </div><!-- slim-pageheader -->
+
+            <div class="row row-sm row-timeline">
+                <div class="col-lg-8">
+                    <div class="section-wrapper">
+                        <h4 class="mg-b-20 mg-sm-b-40">Settings</h4>
+
+                        <div class="row">
+                            <form method="post">
+                                {% csrf_token %}
+                                <div class="col-lg-12">
+                                    <label>Email:</label>
+                                    <div class="input-group" style="display: inline-flex;width: 300px;">
+                                        <div class="input-group-prepend">
+                                        <span class="input-group-text"><i
+                                                class="icon ion-email tx-16 lh-0 op-6"></i></span>
+                                        </div>
+                                        <input type="email" class="form-control" placeholder="Email"
+                                               value="{{ request.user.email }}" disabled>
+                                    </div><!-- input-group -->
+
+                                    {% if request.user.email and not user_info.email_verified_at %}
+                                        <span class="tx-warning">Email verification pending.</span>
+                                    {% endif %}
+                                    {% if not user_info.email_verified_at %}
+                                        <a href="#" data-toggle="modal" data-target="#emailModal">Update email.</a>
+                                    {% endif %}
+                                </div><!-- col-12 -->
+
+                                <div class="col-lg-12 mg-t-20">
+                                    <label>First Name:</label>
+                                    <input type="text" name="first_name" value="{{ user_info.auth_user.first_name }}"
+                                           class="form-control" required/>
+                                </div><!-- col-12 -->
+
+                                <div class="col-lg-12 mg-t-20">
+                                    <label>Last Name:</label>
+                                    <input type="text" name="last_name" value="{{ user_info.auth_user.last_name }}"
+                                           class="form-control"/>
+                                </div><!-- col-12 -->
+
+                                <div class="col-lg-12 mg-t-20">
+                                    <label>Timezone:</label>
+                                    <select class="form-control select2-show-search" name="offset" required>
+                                        {% for tz in timezone_list %}
+                                            <option value="{{ tz.0 }}"
+                                                    {% if user_info.utc_offset == tz.0 %}selected{% endif %}>{{ tz.2 }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div><!-- col-12 -->
+
+                                <div class="col-lg-12 mg-t-20">
+                                    <label>Location:</label>
+                                    <select class="form-control select2-show-search" name="woeid" required>
+                                        <option value="1">Worldwide</option>
+                                        {% for aw in all_woeids %}
+                                            <option value="{{ aw.woeid }}"
+                                                    {% if user_info.woeid == aw.woeid %}selected{% endif %}>{{ aw.name }}, {{ aw.country }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div><!-- col-12 -->
+
+                                <div class="col-lg-12 mg-t-20">
+                                    <label>Currency:</label>
+                                    <select class="form-control select2-show-search" name="currency" required>
+                                        {% for pc in paypal_currencies %}
+                                            <option value="{{ pc.0 }}"
+                                                    {% if user_info.currency_code == pc.0 %}selected{% endif %}>{{ pc.1 }}
+                                                ({{ pc.0 }})
+                                            </option>
+                                        {% endfor %}
+                                    </select>
+                                </div><!-- col-12 -->
+
+                                <div class="col-lg-12 mg-t-20">
+                                    <input type="checkbox" name="new_feature" value="1"
+                                           {% if user_info.subscribe_new_feature %}checked{% endif %}/>&nbsp;Keep me
+                                    updated about new features and product launches
+                                </div><!-- col-12 -->
+
+                                <div class="col-lg-12 mg-t-20">
+                                    <input type="checkbox" name="weekly_reminder" value="1"
+                                           {% if user_info.subscribe_weekly_reminder %}checked{% endif %}/>&nbsp;Remind
+                                    about my updated reports every week
+                                </div><!-- col-12 -->
+
+                                <div class="col-lg-12 mg-t-20">
+                                    <button class="btn btn-success" name="profile"><i class="fa fa-save"></i>&nbsp;Save
+                                    </button>
+                                </div>
+                            </form>
+                        </div><!-- row -->
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+                    {% if integrations.twitter or integrations.instagram %}
+                        <div class="section-wrapper">
+                            <h4 class="mg-b-20 mg-sm-b-40">Connected accounts</h4>
+
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    {% if integrations.twitter %}
+                                        <form method="post">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="next" value="{{ request.get_full_path }}">
+                                            <p>
+                                                <button class="btn btn-primary mg-l-10 btn-oblong" name="twitter">
+                                                    <i class="fa fa-twitter"></i>&nbsp;Update now
+                                                </button>
+                                            </p>
+                                        </form>
+                                    {% else %}
+                                        <p>
+                                            <a href="{% url 'twitter:login' %}"
+                                               class="btn btn-primary mg-l-10 btn-oblong"
+                                               target="_blank">
+                                                <i class="fa fa-twitter"></i>&nbsp;Connect Twitter
+                                            </a>
+                                        </p>
+                                    {% endif %}
+
+                                    {#                                    {% if integrations.instagram %}#}
+                                    {#                                        <form method="post">#}
+                                    {#                                            {% csrf_token %}#}
+                                    {#                                            <p>#}
+                                    {#                                                <button class="btn btn-pink mg-l-10 btn-oblong" name="instagram">#}
+                                    {#                                                    <i class="fa fa-instagram"></i>&nbsp;Sync Instagram#}
+                                    {#                                                </button>#}
+                                    {#                                            </p>#}
+                                    {#                                        </form>#}
+                                    {#                                    {% else %}#}
+                                    {#                                        <p>#}
+                                    {#                                            <a href="{% url 'instagram:login' %}"#}
+                                    {#                                               class="btn btn-pink mg-l-10 btn-oblong"#}
+                                    {#                                               target="_blank">#}
+                                    {#                                                <i class="fa fa-instagram"></i>&nbsp;Connect Instagram#}
+                                    {#                                            </a>#}
+                                    {#                                        </p>#}
+                                    {#                                    {% endif %}#}
+                                </div>
+                            </div><!-- row -->
+                        </div>
+                    {% endif %}
+                </div><!-- col-3 -->
+            </div>
+        </div><!-- container -->
+    </div><!-- slim-mainpanel -->
+{% endblock %}
+
+{% block extrajs %}
+    <script src="{% static 'dashboard/assets/lib/select2/js/select2.full.min.js' %}"></script>
+    <script>
+        $(function () {
+            'use strict';
+
+            // Select2 by showing the search
+            $('.select2-show-search').select2({
+                minimumResultsForSearch: ''
+            });
+        });
+    </script>
+{% endblock %}
