@@ -101,22 +101,10 @@ def my_profile(request):
             auth_user.last_name = lname
         auth_user.save()
 
-        user_info = UserInfo.objects.filter(auth_user_id=request.user.id, auth_user__is_active=True).first()
-        if phone:
-            user_info.phone = phone
-        if city_id:
-            user_info.city_id = city_id
-        user_info.save()
-
         messages.success(request, 'Your profile has been updated successfully')
         return redirect(reverse('my_profile'))
     else:
-        user_info = UserInfo.objects.get(auth_user_id=request.user.id)
-        cities = City.objects.filter(active=True).order_by("name")
-        context_data = {'auth_info': user_info.auth_user,
-                        'user_info': user_info,
-                        'cities': cities,
-                        'metadata': {'title': 'My profile'}}
+        context_data = {'metadata': {'title': 'My profile'}}
         return render(request, 'patient_ui/auth/my_profile.html', context=context_data)
 
 
