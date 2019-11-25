@@ -1,0 +1,27 @@
+{% load decorators %}
+
+{% for res in result_list %}
+    {% for k,v in res.items %}
+        <div class="modal fade" id="{{ k|replace_space }}" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="defaultModalLabel">{{ k }}</h4>
+                    </div>
+                    <div class="modal-body">
+                        {% if v %}
+                            <ul>
+                                {% for subcat in v %}
+                                    <li><a href="#">{{ subcat.title }}</a></li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+{% endfor %}
