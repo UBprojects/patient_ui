@@ -4,6 +4,7 @@
 {% load decorators %}
 
 {% block extracss %}
+    <link  rel="stylesheet" href="{% static 'adminpanel/assets/css/animate_page.css' %}">
     <style>
         .row.profile_state.list-unstyled a {
             display: inline-block;
@@ -28,81 +29,96 @@
     </div>
     <div class="container-fluid">
         <div class="row clearfix">
-            <div class="col-lg-6">
+            <div class="col-lg-12 col-md-12 col-sm-12">
                 <div class="card">
-                    <ul class="row profile_state list-unstyled">
-                        {% for cat in buckets.0 %}
-                            <li class="col-lg-6 col-md-6 col-sm-12">
-                                <a href="#" data-toggle="modal" data-target="#{{ cat.0|replace_space }}">
-                                    <div class="body">
-                                        <i class="zmdi zmdi-account col-blue"></i>
-                                        <h4>{{ cat.0 }}</h4>
-                                    </div>
-                                </a>
-                            </li>
-                        {% endfor %}
-                    </ul>
-                </div>
-            </div>
-            <div class="col-lg-6">
-                <div class="card">
-                    <ul class="row profile_state list-unstyled">
-                        {% for cat in buckets.1 %}
-                            <li class="col-lg-6 col-md-6 col-sm-12">
-                                <a href="#" data-toggle="modal" data-target="#{{ cat.0|replace_space }}">
-                                    <div class="body">
-                                        <i class="zmdi zmdi-account col-amber"></i>
-                                        <h4>{{ cat.0 }}</h4>
-                                    </div>
-                                </a>
-                            </li>
-                        {% endfor %}
-                    </ul>
+                    <div class="header">
+                        <h2> TABS WITH CUSTOM ANIMATIONS <small>You can use different animation class. We used
+                            Animation.css which link is <a href="https://daneden.github.io/animate.css/"
+                                                           target="_blank">https://daneden.github.io/animate.css/</a></small>
+                        </h2>
+                    </div>
+                    <div class="body">
+                        <div class="row clearfix">
+                            <div class="col-sm-12 col-md-12 col-lg-12">
+                                <!-- Nav tabs -->
+                                <ul class="nav nav-tabs">
+                                    {% for res in result_list %}
+                                        {% for parent_title, subcats in res.items %}
+                                            <li class="nav-item">
+                                                <a class="nav-link {% if result_list.0|first_dict_key == parent_title %}active{% endif %}"
+                                                   data-toggle="tab"
+                                                   href="#{{ parent_title|replace_space }}">{{ parent_title }}</a>
+                                            </li>
+                                        {% endfor %}
+                                    {% endfor %}
+                                </ul>
+
+                                <!-- Tab panes -->
+                                <div class="tab-content">
+                                    {% for res in result_list %}
+                                        {% for parent_title, subcats in res.items %}
+                                            <div role="tabpanel"
+                                                 class="tab-pane animated flipInX {% if result_list.0|first_dict_key == parent_title %}active{% endif %}"
+                                                 id="{{ parent_title|replace_space }}">
+                                                <h4>{{ parent_title }}</h4>
+
+                                                {% if subcats %}
+                                                    <div class="panel-group mt-3" id="accordion_10" role="tablist"
+                                                         aria-multiselectable="true">
+                                                        {% for subcat in subcats %}
+                                                            <div class="panel panel-col-indigo">
+                                                                <div class="panel-heading" role="tab"
+                                                                     id="{{ parent_title|replace_space }}-heading-{{ subcat.title|replace_space }}">
+                                                                    <h4 class="panel-title"><a role="button"
+                                                                                               data-toggle="collapse"
+                                                                                               data-parent="#accordion_10"
+                                                                                               href="#{{ parent_title|replace_space }}-{{ subcat.title|replace_space }}"
+                                                                                               aria-expanded="false"
+                                                                                               aria-controls="{{ parent_title|replace_space }}-{{ subcat.title|replace_space }}"
+                                                                                               class="collapsed">
+                                                                        {{ subcat.title }}</a></h4>
+                                                                </div>
+                                                                <div id="{{ parent_title|replace_space }}-{{ subcat.title|replace_space }}"
+                                                                     class="panel-collapse in collapse"
+                                                                     role="tabpanel"
+                                                                     aria-labelledby="{{ parent_title|replace_space }}-heading-{{ subcat.title|replace_space }}"
+                                                                     style="">
+                                                                    <div class="panel-body"> Anim pariatur cliche
+                                                                        reprehenderit, enim eiusmod high life accusamus
+                                                                        terry richardson ad squid. 3 wolf moon officia
+                                                                        aute,
+                                                                        non cupidatat skateboard dolor brunch. Food
+                                                                        truck
+                                                                        quinoa nesciunt laborum eiusmod. Brunch 3 wolf
+                                                                        moon
+                                                                        tempor, sunt aliqua put a bird on it squid
+                                                                        single-origin coffee nulla assumenda shoreditch
+                                                                        et.
+                                                                        Nihil anim keffiyeh helvetica, craft beer labore
+                                                                        wes
+                                                                        anderson cred nesciunt sapiente ea proident. Ad
+                                                                        vegan excepteur butcher vice lomo. Leggings
+                                                                        occaecat
+                                                                        craft beer farm-to-table, raw denim aesthetic
+                                                                        synth
+                                                                        nesciunt you probably haven't heard of them
+                                                                        accusamus labore sustainable VHS.
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        {% endfor %}
+                                                    </div>
+                                                {% endif %}
+                                            </div>
+                                        {% endfor %}
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-        {#        <div class="row clearfix">#}
-        {#            <div class="col-lg-6">#}
-        {#                <div class="card">#}
-        {#                    <ul class="row profile_state list-unstyled">#}
-        {#                        <li class="col-lg-6 col-md-6 col-sm-12">#}
-        {#                            <div class="body">#}
-        {#                                <i class="zmdi zmdi-camera col-amber"></i>#}
-        {#                                <h4>2,365</h4>#}
-        {#                                <span>Shots View</span>#}
-        {#                            </div>#}
-        {#                        </li>#}
-        {#                        <li class="col-lg-6 col-md-6 col-sm-12">#}
-        {#                            <div class="body">#}
-        {#                                <i class="zmdi zmdi-camera col-amber"></i>#}
-        {#                                <h4>2,365</h4>#}
-        {#                                <span>Shots View</span>#}
-        {#                            </div>#}
-        {#                        </li>#}
-        {#                    </ul>#}
-        {#                </div>#}
-        {#            </div>#}
-        {#            <div class="col-lg-6">#}
-        {#                <div class="card">#}
-        {#                    <ul class="row profile_state list-unstyled">#}
-        {#                        <li class="col-lg-6 col-md-6 col-sm-12">#}
-        {#                            <div class="body">#}
-        {#                                <i class="zmdi zmdi-camera col-amber"></i>#}
-        {#                                <h4>2,365</h4>#}
-        {#                                <span>Shots View</span>#}
-        {#                            </div>#}
-        {#                        </li>#}
-        {#                        <li class="col-lg-6 col-md-6 col-sm-12">#}
-        {#                            <div class="body">#}
-        {#                                <i class="zmdi zmdi-camera col-amber"></i>#}
-        {#                                <h4>2,365</h4>#}
-        {#                                <span>Shots View</span>#}
-        {#                            </div>#}
-        {#                        </li>#}
-        {#                    </ul>#}
-        {#                </div>#}
-        {#            </div>#}
-        {#        </div>#}
     </div>
 {% endblock %}
 
