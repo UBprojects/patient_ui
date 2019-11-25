@@ -86,3 +86,30 @@ class PostReply(models.Model):
     class Meta:
         managed = True
         db_table = 'post_reply'
+
+
+class Category(models.Model):
+    title = models.CharField(max_length=100)
+
+    class Meta:
+        managed = True
+        db_table = 'category'
+
+
+class SubCategory(models.Model):
+    category = models.ForeignKey(Category, models.DO_NOTHING)
+    title = models.CharField(max_length=150)
+
+    class Meta:
+        managed = True
+        db_table = 'sub_category'
+
+
+class CategoryPriority(models.Model):
+    auth_user = models.ForeignKey(AuthUser, models.DO_NOTHING)
+    category = models.ForeignKey(Category, models.DO_NOTHING)
+    order = models.IntegerField()
+
+    class Meta:
+        managed = True
+        db_table = 'category_priority'
