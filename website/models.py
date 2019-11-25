@@ -65,3 +65,24 @@ class DiseaseInfo(models.Model):
     class Meta:
         managed = True
         db_table = 'disease_info'
+
+
+class Post(models.Model):
+    auth_user = models.ForeignKey(AuthUser, models.DO_NOTHING)
+    text = models.TextField()
+    created_at = models.DateField()
+    num_replies = models.IntegerField(default=0)
+
+    class Meta:
+        managed = True
+        db_table = 'post'
+
+
+class PostReply(models.Model):
+    auth_user = models.ForeignKey(AuthUser, models.DO_NOTHING)
+    post = models.ForeignKey(Post, models.DO_NOTHING)
+    text = models.TextField()
+
+    class Meta:
+        managed = True
+        db_table = 'post_reply'
