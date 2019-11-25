@@ -91,8 +91,6 @@ def my_profile(request):
     if request.method == 'POST':
         fname = request.POST.get("fname", None)
         lname = request.POST.get("lname", None)
-        city_id = request.POST.get("city_id", None)
-        phone = request.POST.get("phone", None)
 
         auth_user = AuthUser.objects.filter(id=request.user.id, is_active=True).first()
         if fname:
@@ -104,7 +102,9 @@ def my_profile(request):
         messages.success(request, 'Your profile has been updated successfully')
         return redirect(reverse('my_profile'))
     else:
-        context_data = {'metadata': {'title': 'My profile'}}
+        auth_user = AuthUser.objects.filter(id=request.user.id, is_active=True).first()
+        context_data = {'metadata': {'title': 'My profile'},
+                        'auth_info': auth_user}
         return render(request, 'patient_ui/auth/my_profile.html', context=context_data)
 
 

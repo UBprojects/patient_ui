@@ -28,6 +28,7 @@ urlpatterns = [
     url(r'^auth/logout/$', auth_view.logout, name='logout'),
     url(r'^auth/login/$', auth_view.login, name='login'),
     url(r'^auth/forgot-password/$', auth_view.forgot_password, name='forgot_password'),
+    url(r'^auth/change-password/$', auth_view.change_password, name='change_password'),
     url(r'^dashboard/$', app_view.dashboard, name='dashboard'),
     url(r'^my-profile/$', auth_view.my_profile, name='my_profile'),
 ]
