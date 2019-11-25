@@ -9,3 +9,4 @@ dump.rdb
 .env
 sitemap.xml
 patient_db.sqlite3
+migrations

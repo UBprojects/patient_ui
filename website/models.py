@@ -7,6 +7,8 @@ class Patient(models.Model):
     gender = models.CharField(max_length=1, default='F')
     is_married = models.BooleanField(default=False)
     about = models.TextField(blank=True, null=True)
+    profile_url = models.TextField(blank=True, null=True)
+    location = models.CharField(max_length=255, blank=True, null=True)
 
     class Meta:
         managed = True
