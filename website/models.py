@@ -4,7 +4,7 @@ from patient_ui.models import *
 class Patient(models.Model):
     auth_user = models.ForeignKey(AuthUser, models.DO_NOTHING)
     dob = models.DateField(blank=True, null=True)
-    gender = models.CharField(max_length=1, default='F')
+    gender = models.CharField(max_length=1, default='F', null=True, blank=True)
     is_married = models.BooleanField(default=False)
     about = models.TextField(blank=True, null=True)
     profile_url = models.TextField(blank=True, null=True)
