@@ -4,7 +4,7 @@ bugsnag==3.6.0
 certifi==2019.9.11
 chardet==3.0.4
 Click==7.0
-Django==2.2.7
+Django==2.2.24
 django-debug-toolbar==2.0
 django-dotenv==1.4.2
 django-htmlmin==0.11.0
